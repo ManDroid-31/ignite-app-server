@@ -1,13 +1,14 @@
-require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-const corsOptions = require("./utils/corsOption");
+import dotenv from "dotenv";
+dotenv.config();
+import express, { json, urlencoded } from "express";
+import cors from "cors";
+import corsOptions from "./utils/corsOption";
 
 const app = express();
 
 // Built-in JSON/body parsing
-app.use(express.json());                              
-app.use(express.urlencoded({ extended: true }));     
+app.use(json());                              
+app.use(urlencoded({ extended: true }));     
 
 // CORS
 app.use(cors(corsOptions));                          
