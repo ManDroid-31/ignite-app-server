@@ -4,7 +4,7 @@
   "description": "Scaffolds a modular Express backend with middleware, DB, and seeders",
   "main": "server.js",
   "bin": {
-    "ignite-app-server": "./bin/index.js"
+    "ignite-app-server": "bin/index.js"
   },
   "scripts": {
     "dev": "nodemon server.js",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/ignite-app-server.git"
+    "url": "git+https://github.com/your-username/ignite-app-server.git"
   },
   "keywords": [
     "express",
