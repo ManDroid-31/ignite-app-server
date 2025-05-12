@@ -1,0 +1,47 @@
+{
+  "name": "ignite-app-server",
+  "version": "1.1.52",
+  "description": "Scaffolds a modular Express backend with middleware, DB, and seeders",
+  "main": "server.js",
+  "type": "module",
+  "bin": {
+    "ignite-app-server": "bin/index.mjs"
+  },
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+    "lint": "eslint '**/*.js'",
+    "format": "prettier --write '**/*.{js,json,md}'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ManDroid-31/ignite-app-server"
+  },
+  "keywords": [
+    "express",
+    "backend",
+    "scaffold",
+    "cli"
+  ],
+  "author": "Your Name ManDroid-31",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.0.0",
+    "bcrypt": "^5.1.0",
+    "chalk": "^5.4.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.0",
+    "morgan": "^1.10.0",
+    "pg": "^8.7.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "nodemon": "^2.0.0",
+    "prettier": "^2.8.0"
+  }
+}
