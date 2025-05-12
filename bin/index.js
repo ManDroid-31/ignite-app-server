@@ -1,27 +1,24 @@
 #!/usr/bin/env node
-import fs from 'fs-extra';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import chalk from 'chalk';
 
-// __dirname workaround for ESM
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import { copy } from 'fs-extra';
+import { resolve } from 'path';
+import { bold, blue, yellow, cyan, green, red } from 'chalk';
 
 // Paths
-const targetDir = process.cwd(); // Where user runs the CLI
-const templateDir = path.resolve(__dirname, '../templates');
+const targetDir = process.cwd();
+const templateDir = resolve(__dirname, '../templates');
 
-console.log(chalk.green.bold('\n🚀 Setting up your GeoFinance Backend...\n'));
+console.log(bold.green('\n🚀 Setting up your Ignite App Server...\n'));
 
-fs.copy(templateDir, targetDir, { overwrite: true })
+copy(templateDir, targetDir, { overwrite: true })
   .then(() => {
-    console.log(chalk.blue('✅ Files copied to your project folder'));
-    console.log(chalk.yellow('📦 Now run:'));
-    console.log(chalk.cyan('\n   npm install\n   npm run dev\n'));
-    console.log(chalk.green('🔥 Your backend is ready!\n'));
+    console.log(blue('✅ Project files copied!'));
+    console.log(yellow('\n📦 Run the following commands:'));
+    console.log(cyan('\n   npm install'));
+    console.log(cyan('   npm run dev\n'));
+    console.log(green.bold('🔥 Your backend server is ready!\n'));
   })
-  .catch(err => {
-    console.error(chalk.red('❌ Failed to scaffold project:'), err);
+  .catch((err) => {
+    console.error(red.bold('❌ Error while copying template:'), err);
     process.exit(1);
   });
