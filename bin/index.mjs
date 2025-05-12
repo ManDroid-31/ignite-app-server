@@ -1,44 +1,44 @@
 #!/usr/bin/env node
+import fs from 'fs/promises';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import chalk from 'chalk';
 
-import { promises, createReadStream, createWriteStream } from 'fs';
-import { join, resolve } from 'path';
-import { green, blue, yellow, cyan, red } from 'chalk';
-import { pipeline } from 'stream/promises';
+// __dirname workaround
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// Helper to copy directory recursively
-async function copyDir(src, dest) {
-  await promises.mkdir(dest, { recursive: true });
-  const entries = await promises.readdir(src, { withFileTypes: true });
+// Paths
+const targetDir = process.cwd();
+const templateDir = path.resolve(__dirname, '../templates');
 
-  for (const entry of entries) {
-    const srcPath = join(src, entry.name);
-    const destPath = join(dest, entry.name);
+console.log(chalk.green.bold('\n🚀 Setting up your GeoFinance Backend...\n'));
 
-    if (entry.isDirectory()) {
-      await copyDir(srcPath, destPath);
-    } else {
-      await pipeline(createReadStream(srcPath), createWriteStream(destPath));
-    }
+async function copyFiles(srcDir, destDir) {
+  try {
+    const entries = await fs.readdir(srcDir, { withFileTypes: true });
+
+    await Promise.all(entries.map(async (entry) => {
+      const srcPath = path.join(srcDir, entry.name);
+      const destPath = path.join(destDir, entry.name);
+
+      if (entry.isDirectory()) {
+        await fs.mkdir(destPath, { recursive: true });
+        await copyFiles(srcPath, destPath);
+      } else {
+        await fs.copyFile(srcPath, destPath);
+      }
+    }));
+  } catch (err) {
+    console.error(chalk.red('❌ Failed during copying:'), err);
+    process.exit(1);
   }
 }
 
-// Main
 (async () => {
-  const targetDir = process.cwd();
-  const templateDir = resolve(__dirname, '../templates');
-
-  console.log(green.bold('\n🚀 Setting up your Ignite App Server...\n'));
-
-  try {
-    await copyDir(templateDir, targetDir);
-
-    console.log(blue('✅ Project files copied successfully!'));
-    console.log(yellow('\n📦 Run the following commands:'));
-    console.log(cyan('\n   npm install'));
-    console.log(cyan('   npm run dev\n'));
-    console.log(green.bold('🔥 Your backend server is ready!\n'));
-  } catch (err) {
-    console.error(red.bold('❌ Error while copying files:'), err);
-    process.exit(1);
-  }
+  await copyFiles(templateDir, targetDir);
+  console.log(chalk.blue('✅ Files copied to your project folder'));
+  console.log(chalk.yellow('📦 Now run:'));
+  console.log(chalk.cyan('\n   npm install\n   npm run dev\n'));
+  console.log(chalk.green('🔥 Your backend is ready!\n'));
 })();
