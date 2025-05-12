@@ -1,6 +1,6 @@
 {
   "name": "ignite-app-server",
-  "version": "1.1.52",
+  "version": "1.1.53",
   "description": "Scaffolds a modular Express backend with middleware, DB, and seeders",
   "main": "server.js",
   "type": "module",
