@@ -1,6 +1,9 @@
-// config/db.js
-const { Pool } = require('pg');
-require('dotenv').config();
+// config/db.js for SQL cause I prefer SQL over NoSQL
+
+
+import { Pool } from 'pg';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const pool = new Pool({
   host: process.env.DB_HOST,
@@ -19,7 +22,7 @@ pool.on('error', (err) => {
   process.exit(-1);
 });
 
-module.exports = {
+export default {
   query: (text, params) => pool.query(text, params),
   pool,
 };

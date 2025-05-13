@@ -1,5 +1,7 @@
+import dotenv from 'dotenv';
+
 // utils/corsOptions.js
-require('dotenv').config();
+dotenv.config();
 
 const whitelist = (process.env.CORS_ORIGIN || '').split(',').map(u => u.trim());
 
@@ -15,4 +17,4 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 
-module.exports = corsOptions;
+export default corsOptions;

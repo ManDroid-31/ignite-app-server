@@ -1,11 +1,11 @@
 // seeders/seedUsers.js
-const db = require('../backend/config/db');
-const bcrypt = require('bcrypt');
+import { query } from '../backend/config/db';
+import { hash } from 'bcrypt';
 
 async function seedUsers() {
   try {
     // First, ensure table exists
-    await db.query(`
+    await query(`
       CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
         name VARCHAR(100) NOT NULL,
@@ -34,8 +34,8 @@ async function seedUsers() {
     ];
 
     for (const u of users) {
-      const hashed = await bcrypt.hash(u.pass, 10);
-      await db.query(
+      const hashed = await hash(u.pass, 10);
+      await query(
         `INSERT INTO users (name, color, password, profile_url, email, age, fav_color)
          VALUES ($1,$2,$3,$4,$5,$6,$7)
          ON CONFLICT (email) DO NOTHING;`,
