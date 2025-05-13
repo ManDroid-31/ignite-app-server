@@ -13,7 +13,7 @@ const __dirname = path.dirname(__filename);
 const targetDir = process.cwd();
 const templateDir = path.resolve(__dirname, '../templates');
 
-console.log(chalk.green.bold('\n🚀 Setting up your GeoFinance Backend...\n'));
+console.log(chalk.green.bold('\n🚀 Setting up your Backend setup...\n'));
 
 async function copyFiles(srcDir, destDir) {
   try {
